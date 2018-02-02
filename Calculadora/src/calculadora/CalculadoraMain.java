@@ -17,6 +17,8 @@ public class CalculadoraMain {
      */
     public static void main(String[] args) {
         System.out.println(calculadora.calcular("12+4*3+"));
+        CalculadoraGUI form = new CalculadoraGUI();
+        form.setVisible(true);
         //hOLA COMO ESTAS
     }
     
