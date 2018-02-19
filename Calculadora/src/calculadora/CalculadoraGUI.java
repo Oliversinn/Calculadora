@@ -98,25 +98,27 @@ public class CalculadoraGUI extends javax.swing.JFrame {
 
     private void botonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActionPerformed
         // TODO add your handling code here:
-        Calculadora calculadora = new Calculadora();
-        String donde = direccion.getText();
-        String texto = "";
-        double result;
-        String resultado;
-        try{
-            BufferedReader buffer = new BufferedReader(new FileReader(donde));
-            String temporal = "";
-            String bfRead;
-            while((bfRead = buffer.readLine())!= null){
-                temporal = temporal+bfRead;
-                
-                resultado = calculadora.calcular(bfRead);
-                respuesta.append(resultado);
+        if (direccion.getText() != ""){
+            Calculadora calculadora = new Calculadora();
+            String donde = direccion.getText();
+            String texto = "";
+            double result;
+            String resultado;
+            try{
+                BufferedReader buffer = new BufferedReader(new FileReader(donde));
+                String temporal = "";
+                String bfRead;
+                while((bfRead = buffer.readLine())!= null){
+                    temporal = temporal+bfRead;
 
+                    resultado = calculadora.calcular(bfRead);
+                    respuesta.append(resultado);
+
+                }
+                texto = temporal;
+            }catch(Exception e){
+               System.err.println("No se encontro el archivo");
             }
-            texto = temporal;
-        }catch(Exception e){
-           System.err.println("No se encontro el archivo");
         }
     }//GEN-LAST:event_botonActionPerformed
 
