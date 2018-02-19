@@ -9,8 +9,8 @@ package calculadora;
  * @author Revilo
  * @param <E>
  */
-public abstract class AbstractList<E> implements List<E> {
-    public AbstractList()
+public abstract class abstractList<E> implements List<E> {
+    public abstractList()
    // post: does nothing
    {
    }
