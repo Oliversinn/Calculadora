@@ -8,6 +8,7 @@ package calculadora;
 /**
  *
  * @author Revilo
+ * @param <E> generico
  */
 public class Node<E> {
     
