@@ -14,10 +14,10 @@ import java.util.Vector;
  * @param <E> generic
  */
 public class StackVector<E> implements Stack<E> {
- protected ArrayList<E> data;
+ protected Vector<E> data;
     
     public StackVector(){
-        data = new ArrayList<E>();
+        data = new Vector<E>();
     }
     
     @Override
