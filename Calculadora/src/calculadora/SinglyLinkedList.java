@@ -168,12 +168,20 @@ public  class SinglyLinkedList<E> extends abstractList<E> {
 
     @Override
     public void push(E item) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       {
+     // note order that things happen:
+     // head is parameter, then assigned
+     head = new Node<E>(item, head);
+     count++;
+    }
     }
 
     @Override
     public E pop() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Node<E> temp = head;
+     head = head.next(); // move head down list
+     count--;
+     return temp.value();
     }
 
     @Override

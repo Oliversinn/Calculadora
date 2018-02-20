@@ -153,12 +153,24 @@ public class DoublyLinkedList<E> extends abstractList<E> {
 
     @Override
     public void push(E item) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       // construct new element
+        tail = new DoublyLinkedNode<E>(item, null, tail);
+        // fix up head
+        if (head == null) head = tail;
+        count++;
     }
 
     @Override
     public E pop() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        DoublyLinkedNode<E> temp = tail;
+           tail = tail.previous();
+           if (tail == null) {
+               head = null;
+           } else {
+               tail.setNext(null);
+           }
+           count--;
+           return temp.value();
     }
 
     @Override
