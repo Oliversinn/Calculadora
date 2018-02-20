@@ -10,94 +10,96 @@ import java.util.Iterator;
 /**
  *
  * @author Revilo
+ * @param <E>
  */
-public  class SinglyLinkedList<E> extends abstractList<E> {
-   protected int count; // list size
-   protected Node<E> head; // ref. to first element
+public class CircularList<E> extends abstractList<E>{
 
-   public SinglyLinkedList()
-   // post: generates an empty list
+protected Node<E> tail; 
+protected int count;
+
+public CircularList()
+// pre: constructs a new circular list
+{
+   tail = null;
+   count = 0;
+}
+
+    /**
+     *
+     * @param value
+     */
+    @Override
+public void addFirst(E value)
+// pre: value non-null
+// post: adds element to head of list
+{
+   Node<E> temp = new Node<E>(value);
+   if (tail == null) { // first value added
+       tail = temp;
+       tail.setNext(tail);
+   } else { // element exists in list
+       temp.setNext(tail.next());
+       tail.setNext(temp);
+   }
+   count++;
+}
+
+    /**
+     *
+     * @param value
+     */
+    @Override
+public void addLast(E value)
+// pre: value non-null
+// post: adds element to tail of list
+{
+   // new entry:
+   addFirst(value);
+   tail = tail.next();
+}
+
+
+// lo dificil es quitar el elemento de la cola
+
+    /**
+     *
+     * @return
+     */
+
+@Override
+public E removeLast()
+// pre: !isEmpty()
+// post: returns and removes value from tail of list
+{
+   Node<E> finger = tail;
+   while (finger.next() != tail) {
+       finger = finger.next();
+   }
+   // finger now points to second-to-last value
+   Node<E> temp = tail;
+   if (finger == tail)
    {
-      head = null;
-      count = 0;
+       tail = null;
+   } else {
+       finger.setNext(tail.next());
+       tail = finger;
    }
-   
-   @Override
-   public int size()
-   // post: returns number of elements in list
-  {
-    return count;
-  }
-  
-   @Override
-  public void addFirst(E value)
-  // post: value is added to beginning of list
-  {
-     // note order that things happen:
-     // head is parameter, then assigned
-     head = new Node<E>(value, head);
-     count++;
-  }
-  
-   @Override
-  public E removeFirst()
-  // pre: list is not empty
-  // post: removes and returns value from beginning of list
- {
-     Node<E> temp = head;
-     head = head.next(); // move head down list
-     count--;
-     return temp.value();
-  }
-  
-   @Override
-  public E getFirst()
-  // pre: list is not empty
-  // post: returns first value in list
-  {
-      return head.value();
-  }
-  
-   @Override
-  public void addLast(E value)
-  // post: adds value to end of list
-  {
-      // location for new value
-      Node<E> temp = new Node<E>(value,null);
-      if (head != null)
-     {
-         // pointer to possible tail
-         Node<E> finger = head;
-         while (finger.next() != null)
-         {
-                finger = finger.next();
-         }
-		 
-         finger.setNext(temp);
-      } else head = temp;
-	  
-	  count++;
-	  
-   }
-   
-   
-   @Override
-   public boolean contains(E value)
-   // pre: value is not null
-   // post: returns true iff value is found in list
-  {
-      Node<E> finger = head;
-	  
-      while (finger != null &&
-             !finger.value().equals(value))
-     {
-          finger = finger.next();
-      }
-      return finger != null;
-   }
+   count--;
+   return temp.value();
+}
+
+    @Override
+    public int size() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     @Override
     public void clear() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public E getFirst() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -107,7 +109,7 @@ public  class SinglyLinkedList<E> extends abstractList<E> {
     }
 
     @Override
-    public E removeLast() {
+    public E removeFirst() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -167,4 +169,3 @@ public  class SinglyLinkedList<E> extends abstractList<E> {
     }
     
 }
- 

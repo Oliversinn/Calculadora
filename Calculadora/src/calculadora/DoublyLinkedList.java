@@ -10,94 +10,79 @@ import java.util.Iterator;
 /**
  *
  * @author Revilo
+ * @param <E>
  */
-public  class SinglyLinkedList<E> extends abstractList<E> {
-   protected int count; // list size
-   protected Node<E> head; // ref. to first element
+public class DoublyLinkedList<E> extends abstractList<E> {
+    protected int count;
+    protected DoublyLinkedNode<E> head;
+    protected DoublyLinkedNode<E> tail;
+    
+    public DoublyLinkedList()
+// post: constructs an empty list
+{
+   head = null;
+   tail = null;
+   count = 0;
+}
 
-   public SinglyLinkedList()
-   // post: generates an empty list
-   {
-      head = null;
-      count = 0;
+
+    @Override
+    public void addFirst(E value)
+// pre: value is not null
+// post: adds element to head of list
+{
+   // construct a new element, making it head
+   head = new DoublyLinkedNode<E>(value, head, null);
+   // fix tail, if necessary
+   if (tail == null) tail = head;
+   count++;
+}
+
+    /**
+     *
+     * @param value
+     */
+    @Override
+    public void addLast(E value)
+// pre: value is not null
+// post: adds new value to tail of list
+{
+   // construct new element
+   tail = new DoublyLinkedNode<E>(value, null, tail);
+   // fix up head
+   if (head == null) head = tail;
+   count++;
+}
+
+
+    @Override
+    public E removeLast()
+// pre: list is not empty
+// post: removes value from tail of list
+{
+   DoublyLinkedNode<E> temp = tail;
+   tail = tail.previous();
+   if (tail == null) {
+       head = null;
+   } else {
+       tail.setNext(null);
    }
-   
-   @Override
-   public int size()
-   // post: returns number of elements in list
-  {
-    return count;
-  }
-  
-   @Override
-  public void addFirst(E value)
-  // post: value is added to beginning of list
-  {
-     // note order that things happen:
-     // head is parameter, then assigned
-     head = new Node<E>(value, head);
-     count++;
-  }
-  
-   @Override
-  public E removeFirst()
-  // pre: list is not empty
-  // post: removes and returns value from beginning of list
- {
-     Node<E> temp = head;
-     head = head.next(); // move head down list
-     count--;
-     return temp.value();
-  }
-  
-   @Override
-  public E getFirst()
-  // pre: list is not empty
-  // post: returns first value in list
-  {
-      return head.value();
-  }
-  
-   @Override
-  public void addLast(E value)
-  // post: adds value to end of list
-  {
-      // location for new value
-      Node<E> temp = new Node<E>(value,null);
-      if (head != null)
-     {
-         // pointer to possible tail
-         Node<E> finger = head;
-         while (finger.next() != null)
-         {
-                finger = finger.next();
-         }
-		 
-         finger.setNext(temp);
-      } else head = temp;
-	  
-	  count++;
-	  
-   }
-   
-   
-   @Override
-   public boolean contains(E value)
-   // pre: value is not null
-   // post: returns true iff value is found in list
-  {
-      Node<E> finger = head;
-	  
-      while (finger != null &&
-             !finger.value().equals(value))
-     {
-          finger = finger.next();
-      }
-      return finger != null;
-   }
+   count--;
+   return temp.value();
+}
+
+    @Override
+    public int size() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     @Override
     public void clear() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public E getFirst() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -107,7 +92,7 @@ public  class SinglyLinkedList<E> extends abstractList<E> {
     }
 
     @Override
-    public E removeLast() {
+    public E removeFirst() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -165,6 +150,4 @@ public  class SinglyLinkedList<E> extends abstractList<E> {
     public Iterator<E> iterator() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }
- 
